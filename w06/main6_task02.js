@@ -34,8 +34,8 @@ function main()
     //var material = new THREE.MeshLambertMaterial();
     var material_left = new THREE.ShaderMaterial({
 	vertexColors: THREE.VertexColors,
-	vertexShader: document.getElementById('Lambertian.vert').text,
-	fragmentShader: document.getElementById('Lambertian.frag').text,
+	vertexShader: document.getElementById('gouraud.vert').text,
+	fragmentShader: document.getElementById('gouraud.frag').text,
 	uniforms: {
 	    light_position: {type: 'v3',value: light.position},
 	}  
