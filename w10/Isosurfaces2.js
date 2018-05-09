@@ -87,7 +87,7 @@ function Isosurfaces( volume, isovalue )
     {
         var lines = volume.resolution.x;
         var slices = volume.resolution.x * volume.resolution.y;
-
+//配列のループを考えている
         var id0 = cell_index;
         var id1 = id0 + 1;
         var id2 = id1 + lines;
@@ -111,7 +111,7 @@ function Isosurfaces( volume, isovalue )
         var s6 = volume.values[ indices[6] ][0];
         var s7 = volume.values[ indices[7] ][0];
 
-        var index = 0;
+        var index = 0;//bit演算のOR演算
         if ( s0 > isovalue ) { index |=   1; }
         if ( s1 > isovalue ) { index |=   2; }
         if ( s2 > isovalue ) { index |=   4; }
@@ -126,6 +126,6 @@ function Isosurfaces( volume, isovalue )
 
     function interpolated_vertex( v0, v1, s )
     {
-        return new THREE.Vector3().addVectors( v0, v1 ).divideScalar( 2 );
+        return new THREE.Vector3().addVectors( v0, v1 ).divideScalar( s );
     }
 }
