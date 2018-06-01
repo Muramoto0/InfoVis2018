@@ -1,4 +1,4 @@
-function Isosurfaces( volume, isovalue, screen )
+function Isosurfaces( volume, isovalue, screen, shaderData )
 {
   console.log(isovalue);
     var geometry = new THREE.Geometry();
@@ -77,17 +77,30 @@ function Isosurfaces( volume, isovalue, screen )
 
     var materialcolor = new THREE.Color().setHex(cmap[isovalue][1]);
 
+    if( shaderData == 0 ){
     var material = new THREE.ShaderMaterial({
     vertexColors: THREE.VertexColors,
     vertexShader: document.getElementById('Lambertian.vert').text,
     fragmentShader: document.getElementById('Lambertian.frag').text,
-	uniforms: {
+	  uniforms: {
 	    light_position: {type: 'v3',value: screen.light.position},
 	    m_color: { type : 'v3', value: materialcolor}
-	}  
+	    }  
     });
-
-
+    }
+    else{
+    var material = new THREE.ShaderMaterial({
+	  vertexColors: THREE.VertexColors,
+	  vertexShader: document.getElementById('phong.vert').text,
+	  fragmentShader: document.getElementById('phong.frag').text,
+	  uniforms: {
+	    light_position: {type: 'v3',value: screen.light.position},
+	    camera_position: {type: 'v3',value: screen.camera.position},
+      m_color: { type : 'v3', value: materialcolor}
+	  }   
+    });
+    }
+ 
 
     // Assign colors for each vertex
     material.color = materialcolor;
