@@ -1,4 +1,4 @@
-function Isosurfaces( volume, isovalue, screen, shaderData )
+function Isosurfaces( volume, isovalue, screen, shaderData, colorData )
 {
   console.log(isovalue);
     var geometry = new THREE.Geometry();
@@ -64,6 +64,19 @@ function Isosurfaces( volume, isovalue, screen, shaderData )
     geometry.computeVertexNormals();
 
     // Create color map
+  if(colorData == 0){
+	  var cmap = [];
+	  for ( var i = 0; i < 256; i++ )
+	  {
+		  var S = i / 255; // [0,1]
+		  var R = 1;
+		  var G = 1-S;
+		  var B = 1-S;
+		  var color = new THREE.Color( R, G, B );
+		  cmap.push( [ S, '0x' + color.getHexString() ] );
+	  }
+  }
+  else{
     var cmap = [];
     for ( var i = 0; i < 256; i++ )
     {
@@ -74,6 +87,7 @@ function Isosurfaces( volume, isovalue, screen, shaderData )
         var color = new THREE.Color( R, G, B );
         cmap.push( [ S, '0x' + color.getHexString() ] );
     }
+  }
 
     var materialcolor = new THREE.Color().setHex(cmap[isovalue][1]);
 

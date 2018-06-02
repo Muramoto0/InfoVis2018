@@ -23,7 +23,7 @@ enableAutoResize: false
 var bounds = Bounds( volume );
 screen.scene.add( bounds );
 var isovalue = 128;
-var surfaces = Isosurfaces( volume, isovalue, screen, 0 );
+var surfaces = Isosurfaces( volume, isovalue, screen, 0, 1 );
 var surfaces2;
 screen.scene.add( surfaces );
 
@@ -43,16 +43,19 @@ document.getElementById("change-isovalue-button").onclick = function(){
     var elem2 = document.getElementById("shader");
     var radioNodeList = elem2.shaders;
     var shaderData = radioNodeList.value; 
+    var elem3 = document.getElementById("colormap");
+    var radioNodeList2 = elem3.Cmap;
+    var colorData = radioNodeList2.value; 
     if( check1 == true ){
       if(flag1 == 1){
         screen.scene.remove(surfaces);
-        isovalue = parseInt(255 * elem);
-        surfaces = Isosurfaces( volume, isovalue, screen, shaderData );
+        isovalue = parseInt( elem);
+        surfaces = Isosurfaces( volume, isovalue, screen, shaderData, colorData );
         screen.scene.add( surfaces );
       }
       else{
-        isovalue = parseInt(255 * elem);
-        surfaces = Isosurfaces( volume, isovalue, screen, shaderData );
+        isovalue = parseInt(elem);
+        surfaces = Isosurfaces( volume, isovalue, screen, shaderData, colorData );
         screen.scene.add( surfaces );
       }
       flag1 = 1;
@@ -66,12 +69,12 @@ document.getElementById("change-isovalue-button").onclick = function(){
    if( check2 == true ){
      if(flag2 == 1){ 
         screen.scene.remove(surfaces2);
-        isovalue = parseInt(255 * elem);
+        isovalue = parseInt( elem);
         surfaces2 = Sliceplane( volume, isovalue );
         screen.scene.add( surfaces2 );
      }
      else{
-        isovalue = parseInt(255 * elem);
+        isovalue = parseInt(elem);
         surfaces2 = Sliceplane( volume, isovalue );
         screen.scene.add( surfaces2 );
      }
